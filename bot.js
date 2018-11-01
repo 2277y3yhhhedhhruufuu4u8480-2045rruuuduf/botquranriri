@@ -1,19 +1,40 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-console.log("BOT ONLINE");
- 
-client.on("guildMemberAdd", member => {
-  member.createDM().then(function (channel) {
-  return channel.send(` 
-**
-سلام عليكم 
-الحياة تكسرنا وتبعدنا عن الصحبة. لاكن الصحبه موجوده عندنآ:rose:  حياك الله :dancer: 
-اطلب من سموك الرقي تنورنا :butterfly: يلحلو:heart: 
-                          https://discord.gg/YZ6tS9d
-الدعووة خاصة لك ... [ ${member}  ]
-**`) 
-}).catch(console.error)
-})
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
 
-client.login('NDg3MzQ5NjE4NzI0ODMxMjM1.Drw_hg.8s2_tojVZaK_H728gA4hh57Arms');
+client.on('message', msg => {
+  if (msg.content === 'السلام عليكم') {
+    msg.reply('وعليكم السلام ورحمة الله وبركاتة');
+  }
+});
+
+
+const adminprefix = "!";
+const devs = ['311603535466856458','358664999914438658'];
+client.on('message', message => {
+ var argresult = message.content.split(` `).slice(1).join(' ');
+   if (!devs.includes(message.author.id)) return;
+   
+if (message.content.startsWith(adminprefix + 'setgame')) {
+ client.user.setGame(argresult);
+   message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
+} else
+ if (message.content.startsWith(adminprefix + 'setname')) {
+client.user.setUsername(argresult).then
+   message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
+return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");
+} else
+ if (message.content.startsWith(adminprefix + 'setavatar')) {
+client.user.setAvatar(argresult);
+ message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+     } else    
+if (message.content.startsWith(adminprefix + 'setT')) {
+ client.user.setGame(argresult, "https://www.twitch.tv/idk");//حقوق دايموند كودز
+   message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)//حقوق دايموند كودز
+}
+});
+ 
+client.login("NDg4OTI2NzEyNjUwNzkyOTYw.Dnj6kQ.oYeKK0K5LCaNTDyO_gqWdDAzrKc");
